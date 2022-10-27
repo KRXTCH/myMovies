@@ -1,58 +1,71 @@
 <?php
-require_once('Route.php');;
+
 class Router
 {
+    private $request;
+    private $supportedHttpMethods = array(
+        "GET",
+        "POST"
+    );
 
-    private $url;
-    private $routes = [];
-    private $namedRoutes = [];
-
-    public function __construct($url)
+    function __construct(IRequest $request)
     {
-        $this->url = $url;
+        $this->request = $request;
     }
 
-    public function get($path, $callable, $name = null)
+    function __call($name, $args)
     {
-        return $this->add($path, $callable, $name, 'GET');
+        list($route, $method) = $args;
+
+        if (!in_array(strtoupper($name), $this->supportedHttpMethods)) {
+            $this->invalidMethodHandler();
+        }
+
+        $this->{strtolower($name)}[$this->formatRoute($route)] = $method;
     }
 
-    public function post($path, $callable, $name = null)
+    /**
+     * Removes trailing forward slashes from the right of the route.
+     * @param route (string)
+     */
+    private function formatRoute($route)
     {
-        return $this->add($path, $callable, $name, 'POST');
+        $result = rtrim($route, '/');
+        if ($result === '') {
+            return '/';
+        }
+        return $result;
     }
 
-    private function add($path, $callable, $name, $method)
+    private function invalidMethodHandler()
     {
-        $route = new Route($path, $callable);
-        $this->routes[$method][] = $route;
-        if (is_string($callable) && $name === null) {
-            $name = $callable;
-        }
-        if ($name) {
-            $this->namedRoutes[$name] = $route;
-        }
-        return $route;
+        header("{$this->request->serverProtocol} 405 Method Not Allowed");
     }
 
-    public function run()
+    private function defaultRequestHandler()
     {
-        if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
-            throw new Error('REQUEST_METHOD does not exist');
-        }
-        foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
-            if ($route->match($this->url)) {
-                return $route->call();
-            }
-        }
-        throw new Error('No matching routes');
+        header("{$this->request->serverProtocol} 404 Not Found");
     }
 
-    public function url($name, $params = [])
+    /**
+     * Resolves a route
+     */
+    function resolve()
     {
-        if (!isset($this->namedRoutes[$name])) {
-            throw new Error('No route matches this name');
+        $methodDictionary = $this->{strtolower($this->request->requestMethod)};
+        $formatedRoute = $this->formatRoute($this->request->requestUri);
+        $method = $methodDictionary[$formatedRoute];
+
+        if (is_null($method)) {
+            $this->defaultRequestHandler();
+            return;
         }
-        return $this->namedRoutes[$name]->getUrl($params);
+
+        echo call_user_func_array($method, array($this->request));
+    }
+
+    function __destruct()
+    {
+        $this->resolve();
     }
 }

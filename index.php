@@ -1,20 +1,23 @@
 <?php
-//require "/inc/bootstrap.php";
 
-require_once('src\controller\router\Router.php');;
+include_once 'Request.php';
+include_once 'Router.php';
+$router = new Router(new Request);
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-$router = new Router($_GET['url']);
-$router->get('/', function ($id) {
-    //baseController
-    echo "Bienvenue sur ma homepage !";
+$router->get('/', function () {
+    return <<<HTML
+  <h1>Hello world</h1>
+HTML;
 });
-$router->get('/:id', function ($id) {
-    echo "Voila l'article $id";
+
+
+$router->get('/profile', function ($request) {
+    return <<<HTML
+  <h1>Profile</h1>
+HTML;
 });
-$router->run();
+
+$router->post('/data', function ($request) {
+
+    return json_encode($request->getBody());
+});
