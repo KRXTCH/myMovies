@@ -1,23 +1,46 @@
 <?php
 
-include_once 'Request.php';
-include_once 'Router.php';
-$router = new Router(new Request);
 
-$router->get('/', function () {
-    return <<<HTML
-  <h1>Hello world</h1>
-HTML;
+$routes = [];
+
+route('/', function () {
+  echo "Home Page";
 });
 
-
-$router->get('/profile', function ($request) {
-    return <<<HTML
-  <h1>Profile</h1>
-HTML;
+route('/login', function () {
+  echo "Login Page";
 });
 
-$router->post('/data', function ($request) {
-
-    return json_encode($request->getBody());
+route('/about-us', function () {
+  echo "About Us";
 });
+
+route('/404', function () {
+  echo "Page not found";
+});
+
+function route(string $path, callable $callback)
+{
+  global $routes;
+  $routes[$path] = $callback;
+}
+
+run();
+
+function run()
+{
+  global $routes;
+  $uri = $_SERVER['REQUEST_URI'];
+  $found = false;
+  foreach ($routes as $path => $callback) {
+    if ($path !== $uri) continue;
+
+    $found = true;
+    $callback();
+  }
+
+  if (!$found) {
+    $notFoundCallback = $routes['/404'];
+    $notFoundCallback();
+  }
+}

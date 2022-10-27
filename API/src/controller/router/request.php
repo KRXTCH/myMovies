@@ -35,7 +35,6 @@ class Request implements IRequest
             return;
         }
 
-
         if ($this->requestMethod == "POST") {
 
             $body = array();
