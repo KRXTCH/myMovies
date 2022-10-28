@@ -4,7 +4,7 @@
 
 class Router
 {
-    private function route($route, $path_to_include, $functionToUse)
+    private function route($route, $path_to_include, $function)
     {
         $callback = $path_to_include;
         if (!is_callable($callback)) {
@@ -58,7 +58,7 @@ class Router
         exit();
     }
 
-    public function get($route, $path_to_include)
+    public function get($route, $path_to_include, $function)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $this->route($route, $path_to_include);

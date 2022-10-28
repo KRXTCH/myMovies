@@ -2,6 +2,7 @@
 
 class Request
 {
+
     function CallAPI($method, $url, $data = false)
     {
         $curl = curl_init();
@@ -31,7 +32,7 @@ class Request
         $result = curl_exec($curl);
 
         curl_close($curl);
-        echo $result;
+
         return $result;
     }
 }
