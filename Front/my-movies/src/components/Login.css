@@ -1,0 +1,50 @@
+#Login {
+    height: 100vh;
+    background-color: white;
+}
+
+.login_container {
+    position: relative;
+    padding: 0 3rem;
+    text-align: center;
+}
+
+#Register {
+    height: 100vh;
+    background-color: white;
+}
+
+.register_container {
+    position: relative;
+    padding: 0 3rem;
+    text-align: center;
+}
+
+input {
+    border: none;
+    height: 1.5rem;
+    padding: 0.2rem 1rem;
+    border-bottom: 1px solid rgba( 36, 113, 163, 100%);
+    color: rgba( 36, 113, 163, 100%);
+    background-color: transparent;
+    margin: 1rem 0;
+    width: -moz-available;
+}
+
+button {
+    border: none;
+    border-radius: 2rem;
+    height: 3rem;
+    padding: 0 1rem;
+    margin-top: 2rem;
+    background-color: rgb( 36, 113, 163);
+    color: white;
+    width: -moz-available;
+}
+
+.section_title {
+    color: rgb( 36, 113, 163);
+    margin: 15vh 0 2rem 0;
+    font-size: 5vh;
+    text-transform: uppercase;
+}

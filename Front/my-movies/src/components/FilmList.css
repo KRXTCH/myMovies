@@ -1,0 +1,35 @@
+#film_list {
+    background-color: white;
+    text-align: left;
+    padding: 1rem;
+}
+
+.film_container {
+    display: inline-flex;
+}
+
+.film{
+    width: 6rem;
+    height: 9rem;
+    background-color:  #2471a3 ;
+    border-radius: 5px;
+    margin: 0.5rem;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.71); 
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.71);
+}
+
+.scroll_container{
+    overflow-x: scroll;
+}
+
+.light {
+    font-weight: 300;
+}
+
+.playlist_title {
+    color: #2471a3;
+    text-transform: uppercase;
+    border-bottom: 1px solid #2471a3;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}

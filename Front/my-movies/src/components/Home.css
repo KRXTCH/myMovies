@@ -1,0 +1,27 @@
+#Home {
+    height: 100vh;
+}
+
+.img {
+    background-image:
+    linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(255, 255, 255, 0.5)),
+    url('../ressources/imgFilm.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 560px;
+}
+
+h2 {
+    margin: 0;
+}
+
+.filmlist_container {
+    height: 100vh;
+}
+
+.searchbar{
+    border-radius: 1rem;
+    border: 1px solid rgb( 36, 113, 163);
+    background-color: rgba( 36, 113, 163, 0.2);
+    margin: 2rem 1rem 1rem 1rem;
+}
