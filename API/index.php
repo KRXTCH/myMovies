@@ -1,46 +1,12 @@
 <?php
 
+require_once 'vendor\autoload.php';
+require_once 'src\controller\router.php';
 
-$routes = [];
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-route('/', function () {
-  echo "Home Page";
-});
+session_start();
+$router = new Router();
 
-route('/login', function () {
-  echo "Login Page";
-});
-
-route('/about-us', function () {
-  echo "About Us";
-});
-
-route('/404', function () {
-  echo "Page not found";
-});
-
-function route(string $path, callable $callback)
-{
-  global $routes;
-  $routes[$path] = $callback;
-}
-
-run();
-
-function run()
-{
-  global $routes;
-  $uri = $_SERVER['REQUEST_URI'];
-  $found = false;
-  foreach ($routes as $path => $callback) {
-    if ($path !== $uri) continue;
-
-    $found = true;
-    $callback();
-  }
-
-  if (!$found) {
-    $notFoundCallback = $routes['/404'];
-    $notFoundCallback();
-  }
-}
+$router->get('/', 'baseController', 'home');
