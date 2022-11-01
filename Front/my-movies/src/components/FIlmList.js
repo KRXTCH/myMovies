@@ -1,26 +1,31 @@
-import { useState } from "react";
+import { Component, useState } from "react";
 import { Link } from "react-router-dom";
 import "./FilmList.css";
 
-function FilmList({ title, datas }) {
-  var films = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  if(datas != null){
-    console.log(datas.lenght)
+class FilmList extends Component {
+  constructor(props) {
+    super(props);
   }
 
-  let filmList = films.map((e) => {
-    return <Link id={e} className="film" to={e.toString()}></Link>;
-  });
+  render() {
+    const { title, datas, dataLoaded } = this.props;
 
-  return (
-    <section id="film_list">
-      <h4 className="light playlist_title">{title}</h4>
-      <div className="scroll_container">
-        <div className="film_container">{filmList}</div>
-      </div>
-    </section>
-  );
+    if(dataLoaded) {
+      var filmList = datas.map(data => {
+        return <Link id={data.id} className="film" to={data.id.toString()} rel={data.title} style={{background: `url(https://image.tmdb.org/t/p/w200${data.poster_path})`}}></Link>;
+      });
+    }
+
+
+    return (
+      <section id="film_list">
+        <h4 className="light playlist_title">{title}</h4>
+        <div className="scroll_container">
+          <div className="film_container">{filmList ?? <h1 className="error_text">Une érreur est survenue...</h1>}</div>
+        </div>
+      </section>
+    );
+  }
 }
 
 export default FilmList;
