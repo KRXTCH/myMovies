@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import FilmDetails from "./components/FilmDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             path="/inscription"
             element={<Register></Register>}
           ></Route>
+          <Route exact path="/film/:filmId" element={<FilmDetails></FilmDetails>}></Route>
         </Routes>
       </Router>
         <script
