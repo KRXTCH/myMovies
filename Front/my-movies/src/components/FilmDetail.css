@@ -1,0 +1,12 @@
+#film_detail {
+    padding: 0rem 5rem;
+    height: 100vh;
+}
+
+#film_detail .film_img {
+    margin-top: 5rem;
+}
+
+.film_img img {
+    border-radius: 1rem;
+}

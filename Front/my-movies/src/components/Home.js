@@ -31,9 +31,16 @@ class Home extends Component {
     
     return (
       <section id="Home">
-        <div className="img" style={{background: `url(https://image.tmdb.org/t/p/w400${datas[0].poster_path})`}}>
-          <h2 className="img_title">Film du moment</h2>
-          <FontAwesomeIcon className="add-playlist-icon" icon={faPlus}/>
+        <div className="home_img" style={{backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.8)), url(https://image.tmdb.org/t/p/w400${datas[0].poster_path})`}}>
+          <span>
+            <h2 className="img_title">Film du moment</h2>
+            <h3>{datas[0].title}</h3>
+          </span>
+          <div>
+            <p>Ajouter à une playlist
+            <FontAwesomeIcon className="add-playlist-icon" icon={faPlus}/>
+            </p>
+          </div>          
         </div>
         <div className="filmlist_container">
           <input

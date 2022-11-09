@@ -23,7 +23,7 @@ function App() {
             path="/inscription"
             element={<Register></Register>}
           ></Route>
-          <Route exact path="/film/:filmId" element={<FilmDetails></FilmDetails>}></Route>
+          <Route exact path="/film/filmId=:filmId" element={<FilmDetails></FilmDetails>}></Route>
         </Routes>
       </Router>
         <script

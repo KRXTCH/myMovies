@@ -12,7 +12,7 @@ class FilmList extends Component {
 
     if(dataLoaded) {
       var filmList = datas.map(data => {
-        return <Link id={data.id} className="film" to={`/film/` + data.id.toString()} rel={data.title} style={{background: `url(https://image.tmdb.org/t/p/w200${data.poster_path})`}}></Link>;
+        return <Link id={data.id} className="film" to={`/film/filmId=` + data.id.toString()} rel={data.title} style={{background: `url(https://image.tmdb.org/t/p/w200${data.poster_path})`}}></Link>;
       });
     }
 

@@ -1,7 +1,7 @@
 .nav_container {
   height: 100vh;
   position: absolute;
-  background: rgba(245, 245, 245, 0.90);
+  background: rgba(0, 0, 0, 0.90);
   width: 100%;
   z-index: 2;
   overflow-y: hidden;
