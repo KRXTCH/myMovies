@@ -8,15 +8,17 @@ class User
     private $prenom;
     private $mail;
     private $password;
+    private $isAdmin;
     private $listPlaylist;
   
-    public function __construct($nom, $prenom, $mail, $password, $listPlaylist = array())
+    public function __construct($nom, $prenom, $mail, $password,$isAdmin = 0, $listPlaylist = array())
     {
         $this->id_user = null;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->mail = $mail;
         $this->password = $password;
+        $this->isAdmin = $isAdmin;
         $this->listPlaylist = $listPlaylist;
   
     }
@@ -24,13 +26,16 @@ class User
     public function createUser($db)
     {
         try{
-            $params = array(':nom' => $this->nom, ':prenom' => $this->prenom, ':mail' => $this->mail, ':password' => $this->password);
+            
+            $passhash = password_hash($this->password, PASSWORD_DEFAULT);
+
+            $params = array(':nom' => $this->nom, ':prenom' => $this->prenom, ':mail' => $this->mail, ':password' => $passhash, ':isAdmin' => $this->isAdmin);
      
-            $resultat = $db->getConnection()->prepare("INSERT INTO user (prenom, nom, mail, password) VALUES (:prenom,:nom,:mail,:password)");
+            $resultat = $db->getConnection()->prepare("INSERT INTO user (prenom, nom, mail, password, isAdmin) VALUES (:prenom,:nom,:mail,:password,:isAdmin)");
                 
             $resultat->execute($params);
 
-            print "Création du user: [$this->prenom, $this->nom, $this->mail, $this->password] <br/>";
+            print "Création du user: [$this->prenom, $this->nom, $this->mail, $passhash] <br/>";
 
         }catch(PDOException $e){
             print "Erreur : ". $e->getMessage().'<br/>';
@@ -41,7 +46,10 @@ class User
     public function updateUser($db){
 
         try{
-            $params = array(':nom' => $this->nom, ':prenom' => $this->prenom, ':mail' => $this->mail, ':password' => $this->password, ':id_user' => $this->id_user);
+
+            $passhash = password_hash($this->password, PASSWORD_DEFAULT);
+
+            $params = array(':nom' => $this->nom, ':prenom' => $this->prenom, ':mail' => $this->mail, ':password' => $passhash, ':id_user' => $this->id_user);
      
             $resultat = $db->getConnection()->prepare("UPDATE user SET prenom = :prenom, nom = :nom, mail = :mail, password = :password WHERE id_user = :id_user");
             
@@ -55,54 +63,64 @@ class User
         }
     }
 
-    public function deleteUser($db){
-
-        try{
-            $params = array(':id_user' => $this->id_user);
-     
-            $resultat = $db->getConnection()->prepare("DELETE FROM user WHERE id_user = :id_user");
-            
-            $resultat->execute($params);
-
-            print "Suppression du user: [$this->id_user] <br/>";
-
-        }catch(PDOException $e){
-            print "Erreur : ". $e->getMessage().'<br/>';
-            die;
-        }
-    }
 
     public function createPlaylist($playlist,$db)
     {   
         try{
-            $params = array(':titre' => $playlist->getTitre(), ':genre' => $playlist->getGenre(), ':id_user' => $this->id_user);
-    
-            $resultat = $db->getConnection()->prepare("INSERT INTO playlist (titre, genre, id_user) VALUES (:titre,:genre,:id_user)");
-                
-            $resultat->execute($params);
 
-            print "Création de la playlist <br/>";
-
-            if ($playlist->getListMovies() != null)
+            if ($playlist != null)
             {
-                foreach($playlist->getListMovies() as $movie)
-                {
-                    $params = array(':id_playlist' => $playlist->getIdPlaylist(), ':idFilm' => $movie->getIdFilm());
+                $params = array(':id_playlist' => $playlist->getIdPlaylist(),':titre' => $playlist->getTitre(), ':genre' => $playlist->getGenre(), ':id_user' => $this->id_user,':liste' => json_encode($playlist->getListMovies()));
     
-                    $resultat = $db->getConnection()->prepare("INSERT INTO movie (id_playlist, id_film) VALUES (:id_playlist,:idFilm)");
-                        
-                    $resultat->execute($params);
+                $resultat = $db->getConnection()->prepare("INSERT INTO playlist (id_playlist,titre, genre, id_user, listemovies) VALUES (:id_playlist,:titre,:genre,:id_user,:liste)");
+                    
+                $resultat->execute($params);
 
-                    array_push($this->listPlaylist, $playlist);
+                array_push($this->listPlaylist, $playlist);
 
-                    print "Création movie <br/>";
-                }
+                print "Création de la playlist <br/>";
             }
 
         }catch(PDOException $e){
             print "Erreur : ". $e->getMessage().'<br/>';
             die;
         } 
+    }
+
+    public function userCheckDb($db)
+    {   
+        try{
+
+            $id_user = null;
+            $view = new ViewAllUser();
+            $resultat = $view->getAllUser($db);
+
+            foreach($resultat as $row)
+            {
+                if(($row->mail == $this->mail) and (password_verify($this->password, $row->password)))
+                {
+                    $id_user = $row->id_user;
+                    break;
+                }
+            }
+
+            return $id_user;
+
+        }catch(PDOException $e){
+            print "Erreur : ". $e->getMessage().'<br/>';
+            die;
+        } 
+    }
+    public function userIsAdmin()
+    {   
+        if($this->isAdmin = 1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     //getter and setter
@@ -144,6 +162,14 @@ class User
 
     public function setPassword($password){
         $this->password = $password;
+    }
+
+    public function getIsAdmin(){
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin($isAdmin){
+        $this->isAdmin = $isAdmin;
     }
 
     public function getListPlaylist(){

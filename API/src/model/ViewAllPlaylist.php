@@ -31,24 +31,8 @@ class ViewAllPlaylist
 
             foreach($responseSqlTablePlaylist as $rowPlaylist)
             {
-                $tableMovie = array();
-                $playlist = new Playlist($rowPlaylist->titre, $rowPlaylist->genre);
+                $playlist = new Playlist($rowPlaylist->titre, $rowPlaylist->genre, json_decode($rowPlaylist->listemovies));
                 $playlist->setIdPlaylist($rowPlaylist->id_playlist);
-
-                $resultat = $db->getConnection()->prepare("SELECT id_movie, id_film FROM movie WHERE id_playlist = :id_playlist");
-            
-                $resultat->execute(array(':id_playlist' => $playlist->getIdPlaylist()));
-
-                $responseSqlTableMovie = $resultat->fetchAll(PDO::FETCH_OBJ);
-
-                foreach($responseSqlTableMovie as $rowMovie)
-                {
-                    $movie = new Movie($rowMovie->id_film);
-                    $movie->setIdMovie($rowMovie->id_movie);
-                    array_push($tableMovie, $movie);
-                }
-
-                $playlist->setListMovies($tableMovie);
                 array_push($tablePlaylist, $playlist);
             }
 

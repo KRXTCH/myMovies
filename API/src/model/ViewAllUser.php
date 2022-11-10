@@ -34,6 +34,10 @@ class ViewAllUser
 
             $user->setIdUser($responseSql->id_user);
 
+            $viewPlaylist = new ViewAllPlaylist();
+
+            $user->setListPlaylist($viewPlaylist->getAllPlaylist($db));
+
             return $user;
 
         }catch(PDOException $e){
