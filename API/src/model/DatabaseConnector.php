@@ -42,7 +42,7 @@ class DatabaseConnector
 
     public function createTables()
     {
-        $list_query = array('CREATE TABLE user (id_user INT PRIMARY KEY NOT NULL AUTO_INCREMENT, prenom VARCHAR(100) NOT NULL, nom VARCHAR(100) NOT NULL, mail VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL)','CREATE TABLE playlist (id_playlist INT PRIMARY KEY NOT NULL AUTO_INCREMENT, id_film INT NOT NULL, genre VARCHAR(100))');
+        $list_query = array('CREATE TABLE user (id_user INT NOT NULL AUTO_INCREMENT, prenom VARCHAR(100) NOT NULL, nom VARCHAR(100) NOT NULL, mail VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, PRIMARY KEY (id_user))','CREATE TABLE playlist (id_playlist INT NOT NULL AUTO_INCREMENT, titre VARCHAR(100), genre VARCHAR(100), id_user INT NOT NULL, PRIMARY KEY (id_playlist), FOREIGN KEY (id_user) REFERENCES user(id_user))','CREATE TABLE movie (id_movie INT NOT NULL AUTO_INCREMENT, id_playlist INT NOT NULL, id_film INT NOT NULL, PRIMARY KEY (id_movie), FOREIGN KEY (id_playlist) REFERENCES playlist(id_playlist))');
 
         foreach ($list_query as $query)
         {

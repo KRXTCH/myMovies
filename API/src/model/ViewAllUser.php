@@ -17,17 +17,24 @@ class ViewAllUser
         }
     }
 
-    public function getUser($id, $db){
+    public function getUser($id_user, $db){
 
         try{ 
             
-            $params = array(':id' => $id);
+            $params = array(':id' => $id_user);
 
+            ///Récupération des données d'un user
             $resultat = $db->getConnection()->prepare("SELECT * FROM user WHERE id_user = :id");
             
             $resultat->execute($params);
 
-            return $resultat->fetch(PDO::FETCH_OBJ);
+            $responseSql = $resultat->fetch(PDO::FETCH_OBJ);
+
+            $user = new User($responseSql->nom,$responseSql->prenom,$responseSql->mail,$responseSql->password);
+
+            $user->setIdUser($responseSql->id_user);
+
+            return $user;
 
         }catch(PDOException $e){
             print "Erreur : ". $e->getMessage().'<br/>';

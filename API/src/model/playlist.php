@@ -3,91 +3,31 @@
 class Playlist
 {
 
-    private $id;
+    private $id_playlist;
     private $titre;
     private $genre;
-    private $listIdFilm;
+    private $listMovies;
     
 
   
-    public function __construct($titre, $genre, $listIdFilm)
+    public function __construct($titre, $genre, $listMovies = null)
     {
-        $this->id = null;
+        $this->id_playlist = null;
         $this->titre = $titre;
         $this->genre = $genre;
-        $this->listIdFilm = $listIdFilm;
-    }
-
-    public function createPlaylist($db)
-    {
-        foreach($this->listIdFilm as $idFilm)
-        {
-            try{
-                $params = array(':titre' => $this->titre, ':genre' => $this->genre, ':idFilm' => $idFilm);
-         
-                $resultat = $db->getConnection()->prepare("INSERT INTO playlist (titre, genre, id_film) VALUES (:titre,:genre,:idFilm)");
-                    
-                $resultat->execute($params);
-    
-                print "Création de la playlist: [$this->titre, $this->genre, $idFilm] <br/>";
-    
-            }catch(PDOException $e){
-                print "Erreur : ". $e->getMessage().'<br/>';
-                die;
-            }
-        }  
+        $this->listMovies = $listMovies;
     }
 
     public function updatePlaylist($db){
-        $tableDeleteElement = array();
-        $tableAddElement = array();
-        try
-        {
-            $params = array(':id' => $this->id );
+
+        try{
+            $params = array(':titre' => $this->titre, ':genre' => $this->genre,':idPlaylist' => $this->id_playlist,);
      
-            $resultat = $db->getConnection()->prepare("SELECT id_film FROM playlist WHERE id_playlist = :id");
+            $resultat = $db->getConnection()->prepare("UPDATE playlist SET titre = :titre, genre = :genre WHERE id_playlist = :idPlaylist");
             
             $resultat->execute($params);
 
-            $tableIdFilm = $resultat->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach($tableIdFilm as $idFilm)
-            {
-                if (!in_array($idFilm, $this->listIdFilm))
-                {
-                    array_push($tableDeleteElement, $idFilm);
-                }
-            }
-
-            foreach($this->listIdFilm as $idFilm)
-            {
-                if (!in_array($idFilm, $tableIdFilm))
-                {
-                    array_push($tableAddElement, $idFilm);
-                }
-            }
-
-            foreach($tableAddElement as $element){
-
-                $params = array(':titre' => $this->titre, ':genre' => $this->genre, ':idFilm' => $element);
-     
-                $resultat = $db->getConnection()->prepare("INSERT INTO playlist (titre, genre, id_film) VALUES (:titre,:genre,:idFilm)");
-                
-                $resultat->execute($params);
-
-                print "Insertion de ligne <br/>";
-            }
-
-            foreach($tableDeleteElement as $element){
-
-                $params = array(':idFilm' => $element);
-     
-                $resultat = $db->getConnection()->prepare("DELETE FROM playlist WHERE id_film = :idFilm");
-                
-                $resultat->execute($params);
-
-                print "Suppresion de ligne <br/>";
-            }
+            print "Modification du user: [$this->id_playlist] <br/>";
 
         }catch(PDOException $e){
             print "Erreur : ". $e->getMessage().'<br/>';
@@ -95,16 +35,60 @@ class Playlist
         }
     }
 
+    public function addMoviePlaylist ($movie, $db)
+    {
+        try{
+            $params = array(':id_playlist' => $this->id_playlist, ':id_film' => $movie->getIdFilm());
+    
+            $resultat = $db->getConnection()->prepare("INSERT INTO movie (id_playlist, id_film) VALUES (:id_playlist,:id_film)");
+                
+            $resultat->execute($params);
+
+            print "Création de la playlist: [$this->titre, $this->genre] <br/>";
+
+            array_push($this->listMovie, $movie);
+
+        }catch(PDOException $e){
+            print "Erreur : ". $e->getMessage().'<br/>';
+            die;
+        }  
+    }
+
+    public function deleteMoviePlaylist ($movie, $db)
+    {
+        try{
+            $params = array(':id_playlist' => $this->id_playlist, ':id_film' => $movie->getIdFilm());
+    
+            $resultat = $db->getConnection()->prepare("DELETE FROM movie WHERE id_playlist = :id_playlist and id_film = :id_film");
+                
+            $resultat->execute($params);
+
+            print "Suppresion movie: [$movie->getIdFilm())] <br/>";
+
+            array_push($this->listMovie, $movie);
+
+        }catch(PDOException $e){
+            print "Erreur : ". $e->getMessage().'<br/>';
+            die;
+        }  
+    }
+
     public function deletePlaylist($db){
 
         try{
-            $params = array(':id' => $this->id);
+            $params = array(':id_playlist' => $this->id_playlist);
      
-            $resultat = $db->getConnection()->prepare("DELETE FROM playlist WHERE id_playlist = :id");
+            $resultatTablePlaylist = $db->getConnection()->prepare("DELETE FROM playlist WHERE id_playlist = :id_playlist");
             
-            $resultat->execute($params);
+            $resultatTablePlaylist->execute($params);
 
-            print "Suppression de la playlist: [$this->id] <br/>";
+            print "Suppression de la playlist: [$this->id_playlist] <br/>";
+
+            $resultatTableMovie = $db->getConnection()->prepare("DELETE FROM movie WHERE id_playlist = :id_playlist");
+
+            $resultatTableMovie->execute($params);
+
+            print "Suppression des movie relier à la playlist: [$this->id_playlist] <br/>";
 
         }catch(PDOException $e){
             print "Erreur : ". $e->getMessage().'<br/>';
@@ -113,12 +97,12 @@ class Playlist
     }
 
     //getter and setter
-    public function getId(){
-        return $this->id;
+    public function getIdPlaylist(){
+        return $this->id_playlist;
     }
 
-    public function setId($id){
-        $this->id = $id;
+    public function setIdPlaylist($id_playlist){
+        $this->id_playlist = $id_playlist;
     }
 
     public function getTitre(){
@@ -137,11 +121,11 @@ class Playlist
         $this->genre = $genre;
     }
 
-    public function getListIdFilm(){
-        return $this->ListIdFilm;
+    public function getListMovies(){
+        return $this->listMovies;
     }
 
-    public function setListIdFilm($ListIdFilm){
-        $this->ListIdFilm = $ListIdFilm;
+    public function setListMovies($listMovies){
+        $this->listMovies = $listMovies;
     }
 }
