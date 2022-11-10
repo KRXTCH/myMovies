@@ -3,7 +3,7 @@
 class Request
 {
 
-    function CallAPI($method, $url, $data = false)
+    function CallAPI($method, $url, $data = false, $query = false)
     {
         $curl = curl_init();
         switch ($method) {
@@ -20,7 +20,11 @@ class Request
                 if ($data)
                     $url = sprintf("%s?%s", $url, http_build_query($data));
         }
-        curl_setopt($curl, CURLOPT_URL, $_ENV['TMDB_URL'] . $url . '?api_key=' . $_ENV['TMDB_KEY']);
+        if ($query) {
+            curl_setopt($curl, CURLOPT_URL, $_ENV['TMDB_URL'] . $url . '?api_key=' . $_ENV['TMDB_KEY'] . '&query=' . $query . '&language=fr-FR');
+        } else {
+            curl_setopt($curl, CURLOPT_URL, $_ENV['TMDB_URL'] . $url . '?api_key=' . $_ENV['TMDB_KEY'] . '&language=fr-FR');
+        }
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
