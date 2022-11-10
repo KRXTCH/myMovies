@@ -5,6 +5,25 @@
   background-color: var(--black-bg);
 }
 
+.breadcrumb {
+  padding: 0rem 1rem;
+}
+
+.breadcrumb p, .breadcrumb a, .breadcrumb li{
+  color: white!important;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.breadcrumb p {
+  font-weight: 500;
+  color: var(--main-title-color)!important;
+}
+
+.breadcrumb li{
+  font-weight: 300;
+}
+
 :root {
   --black-bg: black;
   --main-title-color: #80c3f0 ;

@@ -1,6 +1,13 @@
+import { Breadcrumbs } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 function LegalNotice() {
   return (
     <section>
+      <Breadcrumbs className="breadcrumb" aria-label="breadcrumb">
+        <Link to="/">Accueil</Link>
+        <p>Mentions Légales</p>
+      </Breadcrumbs>
       <h1>Mentions Légales</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac rhoncus
