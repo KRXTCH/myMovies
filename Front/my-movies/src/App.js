@@ -9,6 +9,7 @@ import {
 import Login from "./components/Login";
 import Register from "./components/Register";
 import FilmDetails from "./components/FilmDetails";
+import LegalNotice from "./components/LegalNotice";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             path="/inscription"
             element={<Register></Register>}
           ></Route>
+          <Route excat path="/mentions-légales" element={<LegalNotice />}></Route>
           <Route exact path="/film/filmId=:filmId" element={<FilmDetails></FilmDetails>}></Route>
         </Routes>
       </Router>

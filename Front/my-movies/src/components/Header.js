@@ -27,7 +27,7 @@ function Header() {
               <Link to="/inscription" onClick={() => toggle()}>Inscription</Link>
             </li>
             <li>
-              <Link to="/qui-sommes-nous" onClick={() => toggle()}>Qui sommes nous ?</Link>
+              <Link to="/mentions-légales" onClick={() => toggle()}>Mentions légales</Link>
             </li>
           </ul>
         </nav>

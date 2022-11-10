@@ -1,5 +1,5 @@
 #film_list {
-    background-color: var(--toastify-color-dark);
+    background-color: var(--black-bg);
     text-align: left;
     padding: 1rem;
 }

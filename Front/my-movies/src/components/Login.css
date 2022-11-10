@@ -1,6 +1,6 @@
 #Login {
     height: 100vh;
-    background-color: var(--toastify-color-dark);
+    background-color: var(--black-bg);
 }
 
 .login_container {
@@ -11,7 +11,7 @@
 
 #Register {
     height: 100vh;
-    background-color: var(--toastify-color-dark);
+    background-color: var(--black-bg);
 }
 
 .register_container {

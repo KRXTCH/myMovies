@@ -29,8 +29,8 @@ function FilmDetails() {
             <div className="film_img">
                 <img src={`https://image.tmdb.org/t/p/w200${filmData.poster_path}`}></img>
                 <h2>{filmData.title}</h2>
-                <p>{filmData.tagline}</p>
-                <p>{filmData.release_date}</p>
+                <p className='subtitle'>{filmData.tagline}</p>
+                <p className='subtitle'>{filmData.release_date}</p>
             </div>
             <div className='film_detail'>
                 <p>{filmData.overview}</p>
