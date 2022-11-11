@@ -10,7 +10,6 @@ function FilmDetails() {
 	const [dataLoaded, setDataLoaded] = useState(false);
 
 	useEffect(() => {
-		//const url = `https://api.themoviedb.org/3/movie/${filmId}?api_key=30036f330813b6c38ac0afac066a9cf4&language=fr-FR`;
 		const url = process.env.API + `movie/${filmId}`;
 
 		const fetchData = async () => {
