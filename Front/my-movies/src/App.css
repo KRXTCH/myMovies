@@ -1,8 +1,8 @@
 .App {
   text-align: center;
-  color: white;
+  color: var(--bg-color);
   overflow-x: hidden;
-  background-color: var(--black-bg);
+  background-color: var(--bg-color);
 }
 
 .breadcrumb {
@@ -10,9 +10,10 @@
 }
 
 .breadcrumb p, .breadcrumb a, .breadcrumb li{
-  color: white!important;
+  color: var(--text-color)!important;
   text-transform: uppercase;
   font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
 }
 
 .breadcrumb p {
@@ -25,8 +26,10 @@
 }
 
 :root {
-  --black-bg: black;
-  --main-title-color: #80c3f0 ;
-  --sub-title-color: #63abdb ;
-  --text-color: #2471a3 ;; 
+  --bg-color: rgb(242, 252, 255);
+  --light-title: #d9f0ff; 
+  --dark-title: #10507a;
+  --main-title-color: #2471a3;
+  --sub-title-color: #529aca ;
+  --text-color: #80c3f0;
 }

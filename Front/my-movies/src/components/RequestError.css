@@ -1,0 +1,12 @@
+#error_message {
+    text-align: center;
+    width: 100%;
+}
+
+#error_message h1{
+    color: var(--sub-title-color);
+}
+
+#error_message p {
+    color: var(--text-color);
+}

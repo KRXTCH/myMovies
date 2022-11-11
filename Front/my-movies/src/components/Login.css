@@ -1,17 +1,13 @@
-#Login {
+#Login, #Register {
     height: 100vh;
-    background-color: var(--black-bg);
+    background-color: var(--bg-color);
+    padding-top: 5rem;
 }
 
 .login_container {
     position: relative;
     padding: 0 3rem;
     text-align: center;
-}
-
-#Register {
-    height: 100vh;
-    background-color: var(--black-bg);
 }
 
 .register_container {

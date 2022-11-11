@@ -1,6 +1,7 @@
 import { Component, useState } from "react";
 import { Link } from "react-router-dom";
 import "./FilmList.css";
+import RequestError from "./RequestError";
 
 class FilmList extends Component {
   constructor(props) {
@@ -18,9 +19,9 @@ class FilmList extends Component {
 
     return (
       <section id="film_list">
-        <h4 className="light playlist_title">{title}</h4>
+        <h3 className="light playlist_title">{title}</h3>
         <div className="scroll_container">
-          <div className="film_container">{filmList ?? <h1 className="error_text">Une érreur est survenue...</h1>}</div>
+          <div className="film_container">{filmList ?? <RequestError></RequestError>}</div>
         </div>
       </section>
     );

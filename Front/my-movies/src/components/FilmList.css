@@ -1,7 +1,9 @@
 #film_list {
-    background-color: var(--black-bg);
+    background-color: var(--light-title);
     text-align: left;
     padding: 1rem;
+    margin: 1rem;
+    border-radius: 10px;
 }
 
 .film_container {
@@ -27,9 +29,10 @@
 }
 
 .playlist_title {
-    color: white;
+    color: var(--main-title-color);
     text-transform: uppercase;
     border-bottom: 1px solid #2471a3;
     padding-bottom: 1rem;
     margin-bottom: 0.5rem;
+    font-weight: 600;
 }

@@ -10,12 +10,16 @@
     position: relative;
 }
 
-.home_img h2, h3 {
+.home_img .img_title, h3 {
     margin: 0 ;
 }
 
-.home_img h2 {
-    color: rgb( 36, 113, 163);
+.home_img .img_title {
+    color: var(--main-title-color);
+}
+
+.home_img .most_popular_film_title{
+    color: var(--light-title);
 }
 
 .filmlist_container {
@@ -30,7 +34,7 @@
 }
 
 .error_text {
-    color: rgb( 36, 113, 163);
+    color: var(--text-color);
 }
 
 .add-playlist-icon {

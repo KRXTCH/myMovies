@@ -1,24 +1,31 @@
 #film_detail {
-    padding: 0rem 5rem;
-    height: 100vh;
+    padding-top: 5rem;
 }
 
-#film_detail .film_img {
-    margin-top: 5rem;
+#film {
+    padding: 3rem 4rem;   
+    margin: 1rem; 
+    border-radius: 10px;
+    background-color: var(--light-title);
+}
+
+#film img {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.71); 
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.71);
 }
 
 .film_img h2 {
-    color: var(--main-title-color);
+    color: var(--dark-title);
     margin-bottom: 0;
 }
 
 .film_img .subtitle {
-    color: var(--text-color);
+    color: var(--sub-title-color);
     margin: 0;
 }
 
-.film_detail p {
-    color: var(--sub-title-color);
+.film_overview p {
+    color: var(--text-color);
 }
 
 .film_img img {

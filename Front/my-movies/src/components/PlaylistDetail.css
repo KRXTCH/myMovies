@@ -1,0 +1,40 @@
+#playlist_detail {
+    height: 100vh;
+}
+
+.playlist_informations {
+    display: inline-flex;
+    margin-top: 5rem;
+}
+
+.playlist_visual {
+    position: relative;
+    width: fit-content;
+    border-radius: 1rem;
+    margin-right: 1rem;
+}
+
+.playlist_visual img{
+    opacity: 0.4;
+}
+
+.playlist_icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+}
+
+.playlist_identity {
+    display: block;
+}
+
+.playlist_identity h1 {
+    color: var(--main-title-color);
+    text-transform: uppercase;
+}
+
+.playlist_identity p {
+    color: var(--sub-title-color);
+}

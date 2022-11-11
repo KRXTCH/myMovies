@@ -21,7 +21,7 @@ class Home extends Component {
 
   async componentDidMount() {
     await fetch(
-      "https://api.themoviedb.org/3/movie/popular?api_key=30036f330813b6c38ac0afac066a9cf4"
+      "https://api.themoviedb.org/3/movie/popular?api_key=30036f330813b6c38ac0afac066a9cf4&language=fr-FR"
     )
       .then((response) => response.json())
       .then((data) => this.setState({ datas: data.results, dataLoaded: true }));
@@ -102,8 +102,8 @@ class Home extends Component {
           }}
         >
           <span>
-            <h2 className="img_title">Film du moment</h2>
-            <h3>{datas[0].title}</h3>
+            <h1 className="img_title">Film du moment</h1>
+            <h3 className="most_popular_film_title">{datas[0].title}</h3>
           </span>
           <div>
             <p>
