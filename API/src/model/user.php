@@ -23,8 +23,9 @@ class User
   
     }
 
-    public function createUser($db)
+    public function createUser()
     {
+        global $db;
         try{
             
             $passhash = password_hash($this->password, PASSWORD_DEFAULT);
@@ -43,8 +44,9 @@ class User
         }
     }
 
-    public function updateUser($db){
+    public function updateUser(){
 
+        global $db;
         try{
 
             $passhash = password_hash($this->password, PASSWORD_DEFAULT);
@@ -64,8 +66,9 @@ class User
     }
 
 
-    public function createPlaylist($playlist,$db)
+    public function createPlaylist($playlist)
     {   
+        global $db;
         try{
 
             if ($playlist != null)
@@ -87,8 +90,9 @@ class User
         } 
     }
 
-    public function userCheckDb($db)
+    public function userCheckDb()
     {   
+        global $db;
         try{
 
             $id_user = null;

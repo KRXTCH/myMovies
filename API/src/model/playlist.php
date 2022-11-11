@@ -20,8 +20,9 @@ class Playlist
         $this->listMovies = $listMovies;
     }
 
-    public function updatePlaylist($db){
+    public function updatePlaylist(){
 
+        global $db;
         try{
             $params = array(':titre' => $this->titre, ':genre' => $this->genre,':id_playlist' => $this->id_playlist,':liste' => json_encode($this->listMovies),':url' => $this->afficheUrl);
      
@@ -37,11 +38,11 @@ class Playlist
         }
     }
 
-    public function addMoviePlaylist($id_film, $db)
+    public function addMoviePlaylist($id_film)
     {
         try{  
             array_push($this->listMovies, $id_film);
-            $this->updatePlaylist($db);
+            $this->updatePlaylist();
             print "Ajout movie: [$id_film] <br/>";
 
         }catch(PDOException $e){
@@ -50,7 +51,7 @@ class Playlist
         }  
     }
 
-    public function deleteMoviePlaylist ($id_film, $db)
+    public function deleteMoviePlaylist ($id_film)
     {
         try{
 
@@ -58,7 +59,7 @@ class Playlist
             {
                 $key = array_search($id_film, $this->listMovies);
                 array_splice($this->listMovies, $key, 1);
-                $this->updatePlaylist($db);
+                $this->updatePlaylist();
                 print "Suppresion movie: [$id_film] <br/>";
             }
 
@@ -68,8 +69,9 @@ class Playlist
         }  
     }
 
-    public function deletePlaylist($db){
+    public function deletePlaylist(){
 
+        global $db;
         try{
             $params = array(':id_playlist' => $this->id_playlist);
      

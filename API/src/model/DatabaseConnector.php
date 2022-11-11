@@ -11,17 +11,17 @@ class DatabaseConnector
 
     public function __construct()
     {
-        // $this->host = getenv('DB_HOST');
-        // $this->port = getenv('DB_PORT');
-        // $this->dbname   = getenv('DB_DATABASE');
-        // $this->user = getenv('DB_USERNAME');
-        // $this->pass = getenv('DB_PASSWORD');
+        $this->host = $_ENV['DB_HOST'];
+        $this->port = $_ENV['DB_PORT'];
+        $this->dbname   = $_ENV['DB_DATABASE'];
+        $this->user = $_ENV['DB_USERNAME'];
+        $this->pass = $_ENV['DB_PASSWORD'];
 
-        $this->host = 'localhost';
-        $this->port = 3306;
-        $this->dbname   = 'mymovie';
-        $this->user = 'root';
-        $this->pass = '';
+        // $this->host = 'localhost';
+        // $this->port = 3306;
+        // $this->dbname   = 'movies';
+        // $this->user = 'root';
+        // $this->pass = '';
         
         try
         {

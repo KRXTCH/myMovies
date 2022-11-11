@@ -2,8 +2,9 @@
 
 class ViewAllUser
 {
-    public function getAllUser($db){
+    public function getAllUser(){
 
+        global $db;
         try{   
             $resultat = $db->getConnection()->prepare("SELECT * FROM user");
             
@@ -17,8 +18,9 @@ class ViewAllUser
         }
     }
 
-    public function getUser($id_user, $db){
+    public function getUser($id_user){
 
+        global $db;
         try{ 
             
             $params = array(':id' => $id_user);
@@ -36,7 +38,7 @@ class ViewAllUser
 
             $viewPlaylist = new ViewAllPlaylist();
 
-            $user->setListPlaylist($viewPlaylist->getUserAllPlaylist($id_user,$db));
+            $user->setListPlaylist($viewPlaylist->getUserAllPlaylist($id_user));
 
             return $user;
 

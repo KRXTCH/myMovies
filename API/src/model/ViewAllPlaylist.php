@@ -2,8 +2,9 @@
 
 class ViewAllPlaylist
 {
-    public function getAllPlaylist($db){
+    public function getAllPlaylist(){
 
+        global $db;
         try{   
             $resultat = $db->getConnection()->prepare("SELECT * FROM playlist");
             
@@ -17,7 +18,9 @@ class ViewAllPlaylist
         }
     }
 
-    public function getUserAllPlaylist($id_user, $db){
+    public function getUserAllPlaylist($id_user){
+
+        global $db;
         $tablePlaylist = array();
         try{ 
             
