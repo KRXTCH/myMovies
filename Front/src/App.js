@@ -1,12 +1,12 @@
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import Header from "./components/Header";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import FilmDetails from "./components/FilmDetails";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import FilmDetails from "./components/movies/FilmDetails";
 import LegalNotice from "./components/LegalNotice";
-require("dotenv").config();
+
 function App() {
 	return (
 		<div className="App">
