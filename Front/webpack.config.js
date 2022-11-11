@@ -37,10 +37,9 @@ module.exports = {
 				use: ["style-loader", "css-loader"],
 			},
 			{
-				test: /\.(png|jpg|jpeg|gif|svg)$/i,
-				exclude: /node_modules/,
-				type: "resources/",
-			},
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: "asset/resource",
+            },
 		],
 	},
 };

@@ -1,4 +1,4 @@
-import FilmList from "./FilmList";
+import FilmList from "./movies/FilmList";
 
 function Body() {
 	return (
