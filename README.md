@@ -3,6 +3,7 @@
 Groupe compose de Martin, Loris et Vincent
 
 Comment demarer le projet :
+Creer les .env de APi et Front
 cd API -> composer install puis php -S 127.0.0.1:3000
 cd Front -> npm install puis npm run start
 
