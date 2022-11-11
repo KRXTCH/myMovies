@@ -36,7 +36,7 @@ class ViewAllUser
 
             $viewPlaylist = new ViewAllPlaylist();
 
-            $user->setListPlaylist($viewPlaylist->getAllPlaylist($db));
+            $user->setListPlaylist($viewPlaylist->getUserAllPlaylist($id_user,$db));
 
             return $user;
 

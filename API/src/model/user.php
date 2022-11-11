@@ -70,9 +70,9 @@ class User
 
             if ($playlist != null)
             {
-                $params = array(':id_playlist' => $playlist->getIdPlaylist(),':titre' => $playlist->getTitre(), ':genre' => $playlist->getGenre(), ':id_user' => $this->id_user,':liste' => json_encode($playlist->getListMovies()));
+                $params = array(':id_playlist' => $playlist->getIdPlaylist(),':titre' => $playlist->getTitre(), ':genre' => $playlist->getGenre(), ':id_user' => $this->id_user,':liste' => json_encode($playlist->getListMovies()), ':url' => $playlist->getAfficheUrl());
     
-                $resultat = $db->getConnection()->prepare("INSERT INTO playlist (id_playlist,titre, genre, id_user, listemovies) VALUES (:id_playlist,:titre,:genre,:id_user,:liste)");
+                $resultat = $db->getConnection()->prepare("INSERT INTO playlist (id_playlist,titre, genre, affiche_url, id_user, listemovies) VALUES (:id_playlist,:titre,:genre,:url,:id_user,:liste)");
                     
                 $resultat->execute($params);
 

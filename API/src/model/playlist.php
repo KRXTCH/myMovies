@@ -6,6 +6,7 @@ class Playlist
     private $id_playlist;
     private $titre;
     private $genre;
+    private $afficheUrl;
     private $listMovies;
     
 
@@ -15,15 +16,16 @@ class Playlist
         $this->id_playlist = uniqid();
         $this->titre = $titre;
         $this->genre = $genre;
+        $this->afficheUrl = null;
         $this->listMovies = $listMovies;
     }
 
     public function updatePlaylist($db){
 
         try{
-            $params = array(':titre' => $this->titre, ':genre' => $this->genre,':id_playlist' => $this->id_playlist,':liste' => json_encode($this->listeMovies));
+            $params = array(':titre' => $this->titre, ':genre' => $this->genre,':id_playlist' => $this->id_playlist,':liste' => json_encode($this->listMovies),':url' => $this->afficheUrl);
      
-            $resultat = $db->getConnection()->prepare("UPDATE playlist SET titre = :titre, genre = :genre, listemovies = :liste WHERE id_playlist = :id_playlist");
+            $resultat = $db->getConnection()->prepare("UPDATE playlist SET titre = :titre, genre = :genre, affiche_url = :url, listemovies = :liste WHERE id_playlist = :id_playlist");
             
             $resultat->execute($params);
 
@@ -37,9 +39,10 @@ class Playlist
 
     public function addMoviePlaylist($id_film, $db)
     {
-        try{        
+        try{  
             array_push($this->listMovies, $id_film);
             $this->updatePlaylist($db);
+            print "Ajout movie: [$id_film] <br/>";
 
         }catch(PDOException $e){
             print "Erreur : ". $e->getMessage().'<br/>';
@@ -105,6 +108,14 @@ class Playlist
 
     public function setGenre($genre){
         $this->genre = $genre;
+    }
+
+    public function getAfficheUrl(){
+        return $this->afficheUrl;
+    }
+
+    public function setAfficheUrl($afficheUrl){
+        $this->afficheUrl = $afficheUrl;
     }
 
     public function getListMovies(){

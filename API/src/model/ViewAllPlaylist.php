@@ -23,7 +23,7 @@ class ViewAllPlaylist
             
             $params = array(':id_user' => $id_user);
 
-            $resultat = $db->getConnection()->prepare("SELECT id_playlist, titre, genre FROM playlist WHERE id_user = :id_user");
+            $resultat = $db->getConnection()->prepare("SELECT * FROM playlist WHERE id_user = :id_user");
             
             $resultat->execute($params);
 
@@ -33,6 +33,7 @@ class ViewAllPlaylist
             {
                 $playlist = new Playlist($rowPlaylist->titre, $rowPlaylist->genre, json_decode($rowPlaylist->listemovies));
                 $playlist->setIdPlaylist($rowPlaylist->id_playlist);
+                $playlist->setAfficheUrl($rowPlaylist->affiche_url);
                 array_push($tablePlaylist, $playlist);
             }
 
