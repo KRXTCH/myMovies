@@ -3,7 +3,7 @@
 require_once 'vendor\autoload.php';
 require_once 'src\controller\moviesController.php';
 require_once 'src\controller\baseController.php';
-
+header("Access-Control-Allow-Origin: *");
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -32,13 +32,7 @@ if (count($routes) > 0) {
                     case 'popular':
                         $moviesController->popular();
                         break;
-                    case 'detail':
-                        if (count($routes) > 2) {
-                            $moviesController->detail($routes[2]);
-                        } else {
-                            $baseController->Error();
-                        }
-                        break;
+
                     default:
                         $baseController->Error();
                         break;
@@ -47,7 +41,9 @@ if (count($routes) > 0) {
                 $baseController->Error();
             }
             break;
-
+        case 'movie':
+            $moviesController->detail($routes[1]);
+            break;
         default:
             $baseController->Error();
             break;

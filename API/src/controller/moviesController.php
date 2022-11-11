@@ -24,7 +24,6 @@ class moviesController
     {
         $request = new Request();
         echo $request->CallAPI('GET', 'search/movie', false, $text);
-        echo $text;
     }
 }
 
